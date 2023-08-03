@@ -1,6 +1,7 @@
 import { View, Text, Image, StyleSheet } from "react-native";
 import tweets from "../assets/data/tweets";
 import { TweetType } from "../types";
+import { Entypo } from '@expo/vector-icons';
 
 type TweetProps={
     tweet: TweetType;
@@ -12,9 +13,14 @@ export const Tweet = ({tweet}: TweetProps) => {
        src={tweet.user.image} 
        style={styles.userImage}/>
        <View style={styles.mainContainer}>
-       <Text>{tweet.user.name}</Text>
-
-      <Text>{tweet.content}</Text>
+        <View style={{ flexDirection:"row" }}>
+            <Text>{tweet.user.name}</Text>
+            <Text style={styles.username}>{tweet.user.username}</Text>
+            <Text style={styles.username} >. 2h</Text>
+            <Entypo name="dots-three-horizontal" style={{marginLeft: 'auto'}} size={16} color="grey" />
+        </View>
+            <Text>{tweet.content}</Text>
+        {tweet.image && <Image src={tweet.image} style={styles.Image} />}
       </View>
     </View>
   )
@@ -42,6 +48,16 @@ const styles = StyleSheet.create({
     content:{
       lineHeight: 20,
       marginTop: 5
+    },
+    Image:{
+        width: '100%',
+        aspectRatio: 16 / 9,
+        marginTop: 10,
+        borderRadius: 15
+    },
+    username:{
+        color: 'gry',
+        marginLeft: 5
     }
   });
   
