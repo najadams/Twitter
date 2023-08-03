@@ -1,11 +1,29 @@
 import { View, Text, Image, StyleSheet } from "react-native";
 import tweets from "../assets/data/tweets";
 import { TweetType } from "../types";
-import { Entypo } from '@expo/vector-icons';
+import { Entypo, EvilIcons } from '@expo/vector-icons';
+
+type IconButtonProps = {
+  icon: React.ComponentProps<typeof EvilIcons>['name'];
+  text?: string | number;
+}
 
 type TweetProps={
     tweet: TweetType;
 }
+
+const IconButton = ({icon, text}: IconButtonProps) => {
+  return (
+    <View style={{ flexDirection: 'row' , alignItems: 'center' }}>
+      {/* icon */}
+      <EvilIcons name={icon} size={32}  color="grey"></EvilIcons>
+      {/* Number */}
+      <Text style={{ fontSize:12, color: 'grey' }}>{text}</Text>
+    </View>
+  )
+}
+
+
 export const Tweet = ({tweet}: TweetProps) => {
   return (
     <View style={styles.container}>
@@ -21,6 +39,14 @@ export const Tweet = ({tweet}: TweetProps) => {
         </View>
             <Text>{tweet.content}</Text>
         {tweet.image && <Image src={tweet.image} style={styles.Image} />}
+
+        <View style={styles.footer}>
+          <IconButton icon="comment" text={tweet.numberOfComments} />
+          <IconButton icon="retweet" text={tweet.numberOfRetweets} />
+          <IconButton icon="heart" text={tweet.numberOfLikes} />
+          <IconButton icon="chart" text={tweet.impressions || 0} />
+          <IconButton icon="share-apple"  />
+        </View>
       </View>
     </View>
   )
@@ -52,11 +78,16 @@ const styles = StyleSheet.create({
     Image:{
         width: '100%',
         aspectRatio: 16 / 9,
-        marginTop: 10,
+        marginVertical: 10,
         borderRadius: 15
     },
+    footer :{
+      flexDirection: "row",
+      marginVertical: 5,
+      justifyContent: 'space-between'
+    },
     username:{
-        color: 'gry',
+        color: 'grey',
         marginLeft: 5
     }
   });
