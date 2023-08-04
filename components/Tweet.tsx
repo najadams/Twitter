@@ -14,7 +14,7 @@ type TweetProps={
 
 export const Tweet = ({tweet}: TweetProps) => {
   return (
-    <Link href={"/tweet"} asChild >
+    <Link href={`/tweet/${tweet.id}`} asChild >
       <Pressable style={styles.container}>
         <Image
         src={tweet.user.image} 
